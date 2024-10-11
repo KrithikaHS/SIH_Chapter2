@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+    
+<head>
+    <title>Redirect to Google Maps with Multiple Destinations</title>
+    <style>
+       
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f8ff;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #4682b4;
+            margin-bottom: 20px;
+        }
+
+        input {
+            padding: 10px;
+            width: 250px;
+            border: 2px solid #4682b4;
+            border-radius: 5px;
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: #4682b4;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #5a9bd4;
+        }
+
+        #weather {
+            margin-top: 20px;
+            text-align: center;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 300px;
+            transition: transform 0.3s ease;
+        }
+
+        #weather img {
+            margin-top: 10px;
+        }
+
+        p {
+            font-size: 1.1rem;
+            margin: 5px 0;
+        }
+
+        @media (max-width: 400px) {
+            input, button {
+                width: 90%;
+            }
+
+            #weather {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Get Directions to Multiple Destinations from Your Location</h1>
+    
+    <button id="getLocation">Get Directions</button>
+    <h1>Total Budget</h1>
+    <div id="budget">Loading...</div>
+    <h1>Weather App</h1>
+    <input type="text" id="city" placeholder="Enter city name">
+    <button onclick="api()">Weather</button>
+    <div id="weather"></div>
+    <script>
+        // maps
+        document.getElementById('getLocation').onclick = function() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            const userLat = position.coords.latitude;
+            const userLon = position.coords.longitude;
+
+            // Fetch all destinations from the server
+            fetch('http://localhost:3000/destinations')
+    .then(response => response.json())
+    .then(data => {
+        if (data.length === 0) {
+            console.error('No destinations found');
+            return;
+        }
+
+        // Split data into waypoints and the final destination
+        const waypoints = data.slice(0, -1).map(destination => encodeURIComponent(destination.placename)).join('|');
+        const finalDestination = encodeURIComponent(data[data.length - 1].placename);
+
+        // Log the waypoints and the final destination
+        console.log('Waypoints:', waypoints);
+        console.log('Final Destination:', finalDestination);
+
+        // Construct the Google Maps URL with waypoints
+        const mapsUrl = `https://www.google.com/maps/dir/?api=1&origin=${userLat},${userLon}&destination=${finalDestination}&waypoints=${waypoints}`;
+        console.log('Maps URL:', mapsUrl); // Log the constructed URL
+
+        // Redirect to the constructed Google Maps URL
+        window.location.href = mapsUrl;
+    })
+    .catch(error => console.error('Error fetching destinations:', error));
+
+
+              
+        }, function() {
+            alert('Unable to retrieve your location. Please enable location services.');
+        });
+    } else {
+        alert('Geolocation is not supported by this browser.');
+    }
+};
+// budget
+    // Fetch total budget from the server
+    fetch('/total-budget')
+    .then(response => response.text())
+    .then(data => {
+        document.getElementById('budget').innerHTML = data;
+    })
+    .catch(error => {
+        console.error('Error fetching budget:', error);
+        document.getElementById('budget').innerHTML = 'Error loading budget.';
+    });
+// weather
+function api() {
+            const city = document.getElementById('city').value;
+            if (!city) {
+                alert('Please enter a city name');
+                return;
+            }
+
+            // Fetch weather data from WeatherAPI
+            fetch(`http://api.weatherapi.com/v1/current.json?key=514ff5865cbb465daaf144700240909&q=${city}`)
+                .then(res => res.json())
+                .then(data => {
+                    const weatherCondition = data.current.condition.text;
+                    const temp = data.current.temp_c;
+                    const iconUrl = data.current.condition.icon;
+
+                    // Display weather details
+                    document.getElementById('weather').innerHTML = `
+                        <h2>Weather in ${city}</h2>
+                        <p>Condition: ${weatherCondition}</p>
+                        <p>Temperature: ${temp}°C</p>
+                        <img src="${iconUrl}" alt="${weatherCondition}">
+                    `;
+                })
+                .catch(error => {
+                    document.getElementById('weather').innerHTML = 'Error fetching weather data';
+                    console.error(error);
+                });
+        }
+
+    </script>
+</body>
+</html>
