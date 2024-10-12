@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Tiny_Devs | Discover ,Explore and Experience the World Your Way!!</title>
+		<meta name="description" content="Worthy a Bootstrap-based, Responsive HTML5 Template">
+		<meta name="author" content="htmlcoder.me">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="shortcut icon" href="images/favicon.ico">
+
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700,300&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Raleway:700,400,300' rel='stylesheet' type='text/css'>
+
+		<link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+
+		<link href="fonts/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+		<link href="css/animations.css" rel="stylesheet">
+
+		<link href="css/style.css" rel="stylesheet">
+
+		<link href="css/custom.css" rel="stylesheet">
+	<style>
+		.place-item {
+      margin-bottom: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .place-name {
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+    .place-desc {
+      color: #555;
+    }
+	#image-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Create responsive columns */
+  gap: 20px; /* Space between items */
+  margin-top: 20px;
+}
+
+.image-item {
+  text-align: center;
+}
+
+.image-item img {
+  width: 500px;  /* Fixed width */
+  height: 300px; /* Fixed height */
+  object-fit: cover; /* Ensures the image covers the box without distortion */
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+
+.image-item img:hover {
+  transform: scale(1.05);
+}
+
+.image-name {
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 1em;
+  color: #333;
+}
+
+
+    /*buutin*/
+	
+  .place-item {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display:flex; /* Align button and content horizontally */
+    align-items: center;
+  }
+
+ /* .content-wrapper {
+    margin-left: 20px; /* Space between button and content
+  }*/
+
+  .place-name {
+    font-weight: bold;
+    font-size: 1.2em;
+  }
+
+  .place-desc {
+    color: #555;
+  }
+
+  .add-button {
+  background-color: #28a745; /* Green background */
+  color: white; /* White text */
+  padding: 10px 20px; /* Padding */
+  border: none; /* No border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  font-size: 1em; /* Font size */
+  transition: background-color 0.2s ease;
+}
+
+.add-button:hover {
+  background-color: #218838; /* Darker green on hover */
+}
+/* Container for the added places */
+#addedplace {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Space between items */
+}
+
+/* Style for each image item */
+.image-item {
+    border: 1px solid #ddd;
+    padding: 10px;
+    box-sizing: border-box;
+    flex: 1 1 calc(20% - 10px); /* 20% width for 5 items per row minus gap */
+    max-width: calc(20% - 10px); /* Max width to ensure 5 items per row */
+    min-width: 150px; /* Minimum width for smaller screens */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Adds a subtle shadow */
+}
+
+/* Style for place name */
+.image-name {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* Style for place budget */
+.image-budget {
+    margin-bottom: 10px;
+}
+
+/* Remove button styling */
+.remove-button {
+    cursor: pointer;
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+/* Optional: Adjust image size if images were included */
+.image-item  {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+
+
+	</style>
+	</head>
+
+	<body class="no-trans">
+	
+		<div class="scrollToTop"><i class="icon-up-open-big"></i></div>
+
+		
+		<header class="header fixed clearfix navbar navbar-fixed-top">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-4">
+
+						
+						<div class="header-left clearfix">
+
+							<div class="logo smooth-scroll">
+								<a href="#banner"><img id="logo" src="images/logo.png" alt="Worthy"></a>
+							</div>
+
+							<div class="site-name-and-slogan smooth-scroll">
+								<div class="site-name"><a href="#banner">Tiny_Devs</a></div>
+								<div class="site-slogan">Discover ,Explore and Experience the World Your Way!!</div>
+							</div>
+
+						</div>
+
+					</div>
+					<div class="col-md-8">
+
+						
+						<div class="header-right clearfix">
+
+							
+							<div class="main-navigation animated">
+
+								
+								<nav class="navbar navbar-default" role="navigation">
+									<div class="container-fluid">
+
+										<div class="navbar-header">
+											<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+												<span class="sr-only">Toggle navigation</span>
+												<span class="icon-bar"></span>
+												<span class="icon-bar"></span>
+												<span class="icon-bar"></span>
+											</button>
+										</div>
+
+										<div class="collapse navbar-collapse scrollspy smooth-scroll" id="navbar-collapse-1">
+											<ul class="nav navbar-nav navbar-right">
+												<li class="active"><a href="#banner">Home</a></li>
+												<li><a href="#about">About</a></li>
+												<li><a href="#services">Services</a></li>
+												<li><a href="#portfolio">Portfolio</a></li>
+												<li><a href="#clients">Clients</a></li>
+												<li><a href="#contact">Contact</a></li>
+											</ul>
+										</div>
+
+									</div>
+								</nav>
+
+							</div>
+
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</header>
+	
+		<div id="banner" class="banner">
+			<div class="banner-image"></div>
+			<div class="banner-caption">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-8 col-md-offset-2 object-non-visible" data-animation-effect="fadeIn">
+							<h1 class="text-center">Explore <span>fetched name</span></h1>
+							<p class="lead text-center">fetched description</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		
+
+
+		<div class="section clearfix object-non-visible" data-animation-effect="fadeIn">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<h1 id="about" class="title text-center">Suggested <span>Tourist Places</span></h1>
+						<div class="space"></div>
+						<div class="row">
+							<div id="data-list"></div>
+  							<div id="image-gallery"></div>
+						</div>
+						<div class="space"></div>
+				</div>
+				<div class="col-md-12">
+					<h1 id="about" class="title text-center">Your <span>Tourist Places</span></h1>
+					<div class="space"></div>
+					<div class="row">
+						<div id="addedplace"></div>
+					</div><!--added places-->
+					</div>
+					<div class="space"></div>
+			</div>
+			</div>
+		</div>
+		
+		<script type="text/javascript" src="plugins/jquery.min.js"></script>
+		<script type="text/javascript" src="script.js"></script>
+		<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+
+		<script type="text/javascript" src="plugins/modernizr.js"></script>
+
+		<script type="text/javascript" src="plugins/isotope/isotope.pkgd.min.js"></script>
+		
+		<script type="text/javascript" src="plugins/jquery.backstretch.min.js"></script>
+
+		<script type="text/javascript" src="plugins/jquery.appear.js"></script>
+
+		<script type="text/javascript" src="js/template.js"></script>
+
+		<!-- <script type="text/javascript" src="js/custom.js"></script> -->
+
+	</body>
+</html>
+
+
+ 
+   
