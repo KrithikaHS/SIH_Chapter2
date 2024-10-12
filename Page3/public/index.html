@@ -89,6 +89,8 @@
     <input type="text" id="city" placeholder="Enter city name">
     <button onclick="api()">Weather</button>
     <div id="weather"></div>
+    <h1>Your Report</h1>
+    <button id="downloadReport">Download Report</button>
     <script>
         // maps
         document.getElementById('getLocation').onclick = function() {
@@ -173,6 +175,15 @@ function api() {
                 });
         }
 
+        // for report
+        document.getElementById('downloadReport').onclick = function () {
+            const city = document.getElementById('city').value;
+            if (!city) {
+                alert('Please enter a city name');
+                return;
+            }
+            window.location.href = `/download-report?city=${encodeURIComponent(city)}`;
+        };
     </script>
 </body>
 </html>
